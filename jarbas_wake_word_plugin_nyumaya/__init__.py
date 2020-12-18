@@ -28,36 +28,22 @@ class NyumayaWakeWordPlugin(HotWordEngine):
 
         model = config.get("model", "alexa")
         models_folder = join(dirname(__file__), "models", "hotwords")
-        if model == "alexa_big":
-            self.model = join(models_folder, model + "_0.3.tflite")
-            self.labels = join(models_folder, "alexa_labels.txt")
-        elif model == "alexa" or model == "alexa_small":
-            self.model = join(models_folder, "alexa_small_0.3.tflite")
-            self.labels = join(models_folder, "alexa_labels.txt")
-        elif model == "marvin_big":
-            self.model = join(models_folder, model + "_0.3.tflite")
-            self.labels = join(models_folder, "marvin_labels.txt")
-        elif model == "marvin" or model == "marvin_small":
-            self.model = join(models_folder, "marvin_small_0.3.tflite")
-            self.labels = join(models_folder, "marvin_labels.txt")
-        elif model == "sheila_big":
-            self.model = join(models_folder, model + "_0.3.tflite")
-            self.labels = join(models_folder, "sheila_labels.txt")
-        elif model == "sheila" or model == "sheila_small":
-            self.model = join(models_folder, "sheila_small_0.3.tflite")
-            self.labels = join(models_folder, "sheila_labels.txt")
+        if model == "alexa":
+            self.model = join(models_folder, "alexa_v1.0.0.premium")
+        elif model == "marvin":
+            self.model = join(models_folder, "marvin_v1.0.0.premium")
+        elif model == "sheila":
+            self.model = join(models_folder, "sheila_v1.0.0.premium")
+        elif model == "firefox":
+            self.model = join(models_folder, "firefox_v1.0.0.premium")
         elif exists(model):
             self.model = model
         elif exists(join(models_folder, model)):
             self.model = join(models_folder, model)
-            self.labels = join(models_folder,
-                               model.split("_")[1] + "_labels.txt")
         else:
             raise ValueError("Model not found: " + str(model))
 
-        if self.labels and not exists(self.labels):
-            self.labels = None
-        self.detector = NyumayaDetector(self.model, self.labels)
+        self.detector = NyumayaDetector(self.model)
         self.detector.set_sensitivity(self.sensitivity)
         self.bufsize = self.detector.get_input_data_size()
         print("Nyumaya lib version: " + self.detector.version)
@@ -70,9 +56,6 @@ class NyumayaWakeWordPlugin(HotWordEngine):
                                                 self.extractor_gain)
         prediction = self.detector.run_detection(features)
         if prediction:
-            if self.labels:
-                label = self.detector.get_prediction_label(prediction)
-                print("Detected", label)
             return True
         return False
 

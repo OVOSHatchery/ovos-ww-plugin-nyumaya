@@ -34,7 +34,7 @@ class MultiDetector:
 
             if index >= len(cmd['command']):
                 print("Error index out of range:")
-                print("Command: " + str(cmd))
+                print("commands: " + str(cmd))
                 print("Index: " + str(index))
                 print("History: " + str(history))
                 return []

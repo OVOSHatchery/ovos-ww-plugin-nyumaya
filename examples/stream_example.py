@@ -3,13 +3,13 @@ from datetime import datetime
 from jarbas_wake_word_plugin_nyumaya.record import ArecordStream
 
 
-def label_stream(labels, graph, sensitivity):
+def label_stream(graph, sensitivity):
     audio_stream = ArecordStream()
 
     extractor = FeatureExtractor()
     extactor_gain = 1.0
 
-    detector = NyumayaDetector(graph, labels)
+    detector = NyumayaDetector(graph)
     detector.set_sensitivity(sensitivity)
 
     bufsize = detector.get_input_data_size()
@@ -29,7 +29,7 @@ def label_stream(labels, graph, sensitivity):
 
             if prediction:
                 now = datetime.now().strftime("%d.%b %Y %H:%M:%S")
-                print(detector.get_prediction_label(prediction) + " " + now)
+                print("detected " + now)
 
     except KeyboardInterrupt:
         print("Terminating")
@@ -42,8 +42,7 @@ if __name__ == '__main__':
 
     models_folder = join(dirname(dirname(__file__)), "jarbas_wake_word_plugin_nyumaya",
                          "models")
-    default_model = join(models_folder, "hotwords", "alexa_small_0.3.tflite")
-    default_labels = join(models_folder, "hotwords", "alexa_labels.txt")
+    default_model = join(models_folder, "hotwords", "alexa_v1.0.0.premium")
 
     parser = argparse.ArgumentParser()
 
@@ -51,11 +50,6 @@ if __name__ == '__main__':
         '--model', type=str,
         default=default_model,
         help='Model to use for identification.')
-
-    parser.add_argument(
-        '--labels', type=str,
-        default=default_labels,
-        help='Path to file containing labels.')
 
     parser.add_argument(
         '--sens', type=float,
@@ -66,4 +60,4 @@ if __name__ == '__main__':
 
     FLAGS, unparsed = parser.parse_known_args()
 
-    label_stream(FLAGS.labels, FLAGS.model, FLAGS.sens)
+    label_stream(FLAGS.model, FLAGS.sens)
