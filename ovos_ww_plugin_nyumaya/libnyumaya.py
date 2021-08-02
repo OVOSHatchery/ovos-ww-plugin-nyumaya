@@ -11,10 +11,10 @@ def _get_lib():
         if machine == "x86_64":
             return join(dirname(__file__), "lib", "linux_x86_64",
                         "libnyumaya_premium.so")
-        elif machine == "armv6l":
+        elif machine == "armv6":
             return join(dirname(__file__), "lib", "armv6",
                         "libnyumaya_premium.so")
-        elif machine == "armv7l":
+        elif machine == "armv7":
             return join(dirname(__file__), "lib", "armv7",
                         "libnyumaya_premium.so")
         else:
