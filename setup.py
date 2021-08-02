@@ -11,7 +11,7 @@ setup(
     author='JarbasAi',
     author_email='jarbasai@mailfence.com',
     license='Apache-2.0',
-    packages=['ovos_ww_plugin_nyumaya_legacy'],
+    packages=['ovos_ww_plugin_nyumaya'],
     include_package_data=True,
     install_requires=["ovos-plugin-manager>=0.0.1a7"],
     zip_safe=True,
