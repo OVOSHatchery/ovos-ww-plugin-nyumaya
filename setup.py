@@ -2,10 +2,10 @@
 from setuptools import setup
 
 
-PLUGIN_ENTRY_POINT = 'ovos-ww-plugin-nyumaya=ovos_ww_plugin_nyumaya_legacy:NyumayaWakeWordPlugin'
+PLUGIN_ENTRY_POINT = 'ovos-ww-plugin-nyumaya=ovos_ww_plugin_nyumaya:NyumayaWakeWordPlugin'
 setup(
     name='ovos-ww-plugin-nyumaya',
-    version='0.1.0',
+    version='0.1.1',
     description='Nyumaya wake word plugin for mycroft',
     url='https://github.com/OpenVoiceOS/ovos-ww-plugin-nyumaya',
     author='JarbasAi',
